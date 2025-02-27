@@ -1,0 +1,124 @@
+Modernt RESTful API med Jakarta EE 11 Preview
+Introduktion
+I denna laborationsuppgift ska du utveckla en modern RESTful webbtjänst med Jakarta EE 11
+Preview. Syftet är att bekanta dig med tekniker och mönster inom Java-utveckling för webbtjänster,
+inklusive Jakarta Data som är en ny specifikation som förenklar dataåtkomst.
+Uppgiftsbeskrivning
+Du ska skapa en webbtjänst som hanterar en samling av objekt (t.ex. filmer, möten, bilar).
+Webbtjänsten ska erbjuda CRUD-funktionalitet (Create, Read, Update, Delete) samt möjlighet att
+filtrera objekt baserat på olika attribut.
+Tekniska krav
+1. Entity-klass
+- Skapa en entity-klass för ditt valda domänobjekt (t.ex. `Book`, `Movie`, `Meeting`, `Car`).
+- Använd Jakarta Persistence-annotationer för att mappa klassen till en databastabell.
+- Implementera validering med Jakarta Bean Validation.
+- Inkludera minst följande attribut:
+ * ID (auto-genererat)
+ * Titel/Namn
+ * Beskrivning
+ * Datum (skapad/utgiven/startdatum)
+ * Minst två domänspecifika attribut (t.ex. författare och ISBN för böcker, regissör och längd för
+filmer)
+Exempel på en Book-entitet:
+@Entity
+public class Book {
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ private Long id;
+
+ @NotBlank(message = "Title is required")
+ private String title;
+
+ @NotBlank(message = "Author is required")
+ private String author;
+
+ @Size(max = 1000)
+ private String description;
+
+ @Past(message = "Publication date must be in the past")
+ private LocalDate publicationDate;
+
+ @Pattern(regexp = "^\\d{10}|\\d{13}$", message = "ISBN must be 10 or 13 digits")
+ private String isbn;
+
+ // Getters, setters, constructors...
+}
+2. DTO-mönster
+- Skapa separata DTO-klasser för inkommande och utgående data:
+ * `CreateEntityDTO` för att ta emot nya objekt
+ * `UpdateEntityDTO` för att ta emot uppdateringar
+ * `EntityDTO` för att returnera data till klienten
+- Implementera validering i DTO-klasserna med Jakarta Bean Validation.
+3. Mapper-klass
+- Skapa en mapper-klass som konverterar mellan entity och DTO.
+- Använd en lämplig mappningsstrategi (manuell implementation eller ett ramverk som MapStruct).
+4. Jakarta Data Repository
+- Implementera ett Jakarta Data repository-gränssnitt för din entity.
+- Definiera metoder för att söka och filtrera objekt baserat på relevanta attribut.
+Exempel på ett Book-repository:
+@Repository
+public interface BookRepository extends CrudRepository<Book, Long>,
+OrderableRepository<Book>, PageableRepository<Book> {
+ List<Book> findByAuthorContainingIgnoreCase(String author);
+ List<Book> findByTitleContainingIgnoreCase(String title);
+ List<Book> findByAuthorContainingIgnoreCaseAndTitleContainingIgnoreCase(String author,
+String title);
+}
+5. Service-skikt
+- Skapa ett service-gränssnitt och en implementation som använder repository.
+- Implementera affärslogik som validerar och behandlar data.
+- Hantera datakonverteringar mellan entity och DTO.
+6. REST-resurs
+- Implementera en REST-resurs (controller) som exponerar CRUD-operationer.
+- Använd lämpliga HTTP-metoder (GET, POST, PUT, DELETE).
+- Inkludera stöd för filtrering baserat på minst två attribut. (VG)
+- Implementera paginering för listor av objekt. (VG)
+7. Felhantering
+- Skapa anpassade undantagsklasser (t.ex. `ResourceNotFoundException`, `ValidationException`).
+- Implementera ExceptionMappers för att mappa undantag till HTTP-svar.
+- Returnera meningsfulla felmeddelanden och lämpliga HTTP-statuskoder.
+8. Tester
+- Skriv enhetstester för service- och mapper-klasser.
+- Implementera integrationstester med Arquillian.(VG)
+- Skriv API-tester med RestAssured för att testa REST-endpoints. (VG)
+9. Containerisering
+- Skapa en Dockerfile för applikationen.
+- Implementera en Docker Compose-konfiguration som inkluderar din applikation och en databas.
+Specifika krav per domänobjekt
+Om du väljer Book
+- Extra attribut: author, isbn
+- Filtreringsmöjligheter: author, title
+- Validering: ISBN-format, unik titel+författare-kombination
+Om du väljer Movie
+- Extra attribut: director, duration (minuter)
+- Filtreringsmöjligheter: director, title, duration range
+- Validering: duration > 0, relevant utgivningsår
+Om du väljer Meeting
+- Extra attribut: organizer, participants (lista)
+- Filtreringsmöjligheter: organizer, datumintervall
+- Validering: startdatum före slutdatum, minst en deltagare
+Om du väljer Car
+- Extra attribut: make, model, year
+- Filtreringsmöjligheter: make, model, årsintervall
+- Validering: giltigt tillverkningsår, unik kombination av make+model+year
+Inlämningskrav
+1. Fullständig källkod.
+2. README-fil med:
+ - Beskrivning av implementationen
+ - Instruktioner för att bygga och köra applikationen
+3. Docker-filer för att köra applikationen och databas.
+Bedömningskriterier
+- Korrekt implementation av alla krav
+- Kodkvalitet och structure
+- Användning av moderna Jakarta EE-funktioner
+- Testning och testbarhet
+- Felhantering
+- Dokumentation
+Tips
+- Börja med att skapa entity-klassen och repository.
+- Implementera service-skiktet och testa det separat.
+- Arbeta sedan med REST-resursen och DTOs.
+- Lägg till validering och felhantering när grundfunktionaliteten fungerar.
+- Implementera tester för varje lager.
+- Finslipa dokumentationen sist.
+Lycka till!
