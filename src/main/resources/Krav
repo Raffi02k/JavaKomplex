@@ -43,13 +43,14 @@ public class Book {
 
  // Getters, setters, constructors...
 }
-2. DTO-mönster
+2. DTO-mönster Man kan använda (record)
 - Skapa separata DTO-klasser för inkommande och utgående data:
  * `CreateEntityDTO` för att ta emot nya objekt
  * `UpdateEntityDTO` för att ta emot uppdateringar
  * `EntityDTO` för att returnera data till klienten
 - Implementera validering i DTO-klasserna med Jakarta Bean Validation.
-3. Mapper-klass
+
+3. Mapper-klass Man kan ha statics method som mapper.
 - Skapa en mapper-klass som konverterar mellan entity och DTO.
 - Använd en lämplig mappningsstrategi (manuell implementation eller ett ramverk som MapStruct).
 4. Jakarta Data Repository

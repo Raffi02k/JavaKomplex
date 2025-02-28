@@ -8,15 +8,14 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Path("films")
+@Log
 public class FilmResources {
-
-    private static final Logger logger = Logger.getLogger(FilmResources.class.getName());
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -25,9 +24,11 @@ public class FilmResources {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Film firstTest() {
+        Film film = new Film();
         entityManager.persist(new Film());
         entityManager.flush();
 //        var film = entityManager.find(Film.class,1L);
+        log.info(film.toString());
         return new Film("", 1);
     }
 
