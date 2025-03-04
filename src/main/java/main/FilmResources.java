@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import entity.Film;
 import exaption.NotFound;
@@ -34,7 +34,6 @@ public class FilmResources {
         Film film = new Film();
         entityManager.persist(new Film());
         entityManager.flush();
-//        var film = entityManager.find(Film.class,1L);
         log.info(film.toString());
         return new Film("", 1);
     }
