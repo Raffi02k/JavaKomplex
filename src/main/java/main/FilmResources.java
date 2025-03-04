@@ -85,8 +85,5 @@ public class FilmResources {
         film.setId(id);
         filmRepositoory.save(film);
         return Response.noContent().build();
-
     }
-
 }
-
