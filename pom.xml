@@ -34,7 +34,6 @@
             <groupId>jakarta.data</groupId>
             <artifactId>jakarta.data-api</artifactId>
             <version>1.0.1</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.persistence</groupId>

@@ -67,6 +67,7 @@ public class FilmResources {
         return filmRepositoory.findAll().toList();
     }
 
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNewFilm(Film film) {
