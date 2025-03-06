@@ -1,6 +1,6 @@
 package dto;
 
-public record FilmResponse(int year, String title,  String director, String actors) {
+public record FilmResponse(int year, String title,  String director) {
 //    public FilmResponse(Film film) {
 //        this.year = film.getYear();
 //        this.title = film.getTitle();
