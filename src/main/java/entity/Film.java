@@ -25,7 +25,8 @@ public class Film {
     @Min(value = 1, message = "Duration must be greater than 0")
     private int duration;
 
-    @Past LocalDate releaseDate;
+    @Past
+    private LocalDate releaseDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
