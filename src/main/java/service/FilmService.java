@@ -18,7 +18,7 @@ import java.util.Objects;
 @ApplicationScoped
 public class FilmService {
 
-    private final FilmRepository filmRepository;
+    private FilmRepository filmRepository;
 
     /**
      * Constructor with dependency injection.
