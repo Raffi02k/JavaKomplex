@@ -87,6 +87,13 @@
             <version>5.15.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- In your pom.xml -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-core</artifactId>
+            <version>6.2.4.Final</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
