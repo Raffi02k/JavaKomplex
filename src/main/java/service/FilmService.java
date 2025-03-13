@@ -43,7 +43,7 @@ public class FilmService {
      * @return List of film DTOs
      */
     public List<FilmResponse> getAllFilms() {
-        return filmRepository.findAll()
+        return filmRepository.findAll().stream()
                 .map(FilmResponse::new)
                 .filter(Objects::nonNull)
                 .toList();

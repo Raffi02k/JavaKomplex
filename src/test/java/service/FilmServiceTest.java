@@ -18,7 +18,6 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -57,7 +56,7 @@ class FilmServiceTest {
         Film film2 = new Film("Film 2", 2022, "Director 2", 130, LocalDate.of(2022, 2, 2));
         film2.setId(2L);
 
-        when(filmRepository.findAll()).thenReturn(Stream.of(film1, film2));
+        when(filmRepository.findAll()).thenReturn(List.of(film1, film2));
 
         // Act
         List<FilmResponse> result = filmService.getAllFilms();
@@ -75,7 +74,7 @@ class FilmServiceTest {
     @DisplayName("Should return an empty list when no films exist")
     void getAllFilms_ShouldReturnEmptyList_WhenNoFilmsExist() {
         // Arrange
-        when(filmRepository.findAll()).thenReturn(Stream.empty());
+        when(filmRepository.findAll()).thenReturn(List.of());
 
         // Act
         List<FilmResponse> result = filmService.getAllFilms();

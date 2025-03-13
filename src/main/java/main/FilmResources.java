@@ -66,7 +66,7 @@ public class FilmResources {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public List<Film> getAllFilms() {
-        return filmRepository.findAll().toList();
+        return filmRepository.findAll();
     }
 
     /**
